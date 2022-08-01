@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import InitialScreen from "./screens/initialScreen/index";
+import SignIn from "./screens/signIn";
 
 const OpenStack = createNativeStackNavigator();
 
@@ -11,6 +12,11 @@ export default function OpenScreenNavigate() {
         <OpenStack.Screen
           name="InitialPage"
           component={InitialScreen}
+          options={{ headerShown: false }}
+        />
+        <OpenStack.Screen
+          name="SignIn"
+          component={SignIn}
           options={{ headerShown: false }}
         />
       </OpenStack.Navigator>
