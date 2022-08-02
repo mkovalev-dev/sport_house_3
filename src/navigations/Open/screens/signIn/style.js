@@ -39,4 +39,11 @@ export const Form = StyleSheet.create({
   resetPass: {
     color: DEFAULT_COLORS.WHITE,
   },
+  resetPassBtn: {
+    marginTop: 20,
+    marginBottom: 10,
+    height: 50,
+    width: "100%",
+    backgroundColor: DEFAULT_COLORS.PRIMARY,
+  },
 });
