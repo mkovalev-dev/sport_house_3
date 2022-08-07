@@ -13,9 +13,48 @@ import AnimatedBackground from "../../../../components/AnimatedBackground";
 import { Form, LogoHeadingTitle } from "./style";
 import HeaderGoBack from "../../../../components/HeaderGoBack";
 import * as Animatable from "react-native-animatable";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { unwrapResult } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
+import { LoginApiRequest } from "../../../../api/redux/slices/userSlice";
 
 export default function SignIn() {
   const { isOpen, onOpen, onClose } = useDisclose();
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginInputError, setLoginInputError] = useState(false);
+  const [passInputError, setPassInputError] = useState(false);
+  const dispatch = useDispatch();
+
+  const validateSignIn = () => {
+    if (login.length === 0) {
+      setLoginInputError(true);
+    } else setLoginInputError(false);
+    if (password.length === 0) {
+      setPassInputError(true);
+    } else {
+      setPassInputError(false);
+    }
+    if (login.length > 0 && password.length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  const submitLoginForm = () => {
+    if (validateSignIn()) {
+      dispatch(LoginApiRequest({ username: login, password: password }))
+        .then(unwrapResult)
+        .then(async (res) => {
+          await AsyncStorage.setItem("token", res.token);
+        })
+        .catch((err) => {
+          Alert.alert("Ошибка авторизации", err.non_field_errors[0], []);
+        });
+    }
+  };
   return (
     <AnimatedBackground>
       <HeaderGoBack />
@@ -30,19 +69,28 @@ export default function SignIn() {
       </Animatable.View>
       <Animatable.View animation="slideInUp">
         <View style={Form.container}>
-          <FormControl isInvalid={false} style={{ marginBottom: 10 }}>
-            <Input style={Form.input} placeholder="Логин..." />
+          <FormControl isInvalid={loginInputError} style={{ marginBottom: 10 }}>
+            <Input
+              style={Form.input}
+              placeholder="Логин..."
+              onChangeText={(text) => {
+                setLogin(text);
+              }}
+            />
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}
             >
               Пожалуйста, введите Логин.
             </FormControl.ErrorMessage>
           </FormControl>
-          <FormControl isInvalid={false} style={{ marginTop: 10 }}>
+          <FormControl isInvalid={passInputError} style={{ marginTop: 10 }}>
             <Input
               style={Form.input}
               placeholder="Пароль..."
               secureTextEntry={true}
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
             />
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}
@@ -50,7 +98,9 @@ export default function SignIn() {
               Пожалуйста, введите Пароль.
             </FormControl.ErrorMessage>
           </FormControl>
-          <Button style={Form.submitBtn}>Авторизоваться</Button>
+          <Button style={Form.submitBtn} onPress={submitLoginForm}>
+            Авторизоваться
+          </Button>
           <Button onPress={onOpen} variant="ghost" colorScheme="gray">
             Забыли пароль?
           </Button>
