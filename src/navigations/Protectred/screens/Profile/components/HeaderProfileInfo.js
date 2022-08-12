@@ -20,12 +20,12 @@ import { useEffect, useState } from "react";
 import {
   UserShortInfoApiRequest,
   UserShortInfoData,
+  ViewUserRecInfoApiRequest,
 } from "../../../../../api/redux/slices/userSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import * as Location from "expo-location";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { ApiUrl } from "../../../../../lib/ApiUrl";
-import { useIsFocused } from "@react-navigation/native";
 
 export default function HeaderProfileInfo() {
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ export default function HeaderProfileInfo() {
   useEffect(() => {
     setIsLoading(true);
     if (isFocused) {
+      dispatch(ViewUserRecInfoApiRequest());
       dispatch(UserShortInfoApiRequest())
         .then(unwrapResult)
         .then((res) => {
@@ -69,6 +70,7 @@ export default function HeaderProfileInfo() {
         });
     }
   }, [isFocused]);
+
   return (
     <View
       style={{
@@ -117,7 +119,7 @@ export default function HeaderProfileInfo() {
               alignSelf="center"
               size="lg"
               source={{
-                uri: `${ApiUrl()}${stateShortUserData.avatar}`,
+                uri: `${ApiUrl()}${stateShortUserData?.avatar}`,
               }}
             >
               <Icon as={AntDesign} name="user" color="#fff" size={"lg"} />

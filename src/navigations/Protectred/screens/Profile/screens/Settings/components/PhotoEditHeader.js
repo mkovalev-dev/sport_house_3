@@ -68,7 +68,7 @@ export default function PhotoEditHeader() {
         borderRadius={0}
         style={{ width: "100%", height: "100%" }}
         source={{
-          uri: image ? image : `${ApiUrl()}${stateShortUserData.avatar}`,
+          uri: image ? image : `${ApiUrl()}${stateShortUserData?.avatar}`,
         }}
         _image={{ borderRadius: 0 }}
       >
