@@ -14,7 +14,7 @@ export const TabProfileScreen = StyleSheet.create({
     height: "65%",
     width: "100%",
     backgroundColor: "#fff",
-    marginTop: 35,
+    marginTop: 145,
     borderRadius: 35,
     padding: DEFAULT_STYLE_PARAMS.padding - 25,
   },

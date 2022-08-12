@@ -5,14 +5,22 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import LoginProvider from "./src/lib/LoginProvider";
+import { LinearGradient } from "expo-linear-gradient";
+
 const persistor = persistStore(store);
+
+const config = {
+  dependencies: {
+    "linear-gradient": LinearGradient,
+  },
+};
 
 export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <SSRProvider>
-          <NativeBaseProvider>
+          <NativeBaseProvider config={config}>
             <LoginProvider />
           </NativeBaseProvider>
         </SSRProvider>

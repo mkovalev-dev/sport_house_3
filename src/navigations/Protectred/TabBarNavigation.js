@@ -1,12 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StatusBar, Text, View } from "native-base";
+import { StatusBar } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   DEFAULT_COLORS,
   DEFAULT_STYLE_PARAMS,
 } from "../../resources/styles/base/baseStyles";
-import Profile from "./screens/Profile";
 import React from "react";
 import ProfileNavigation from "./navigations/ProfileNavigation";
 
@@ -31,8 +30,8 @@ export default function TabBarNavigation() {
             height: 90,
             borderRadius: DEFAULT_STYLE_PARAMS.borderRadius,
             paddingHorizontal: 5,
-            paddingTop: 0,
-            backgroundColor: DEFAULT_COLORS.LIGHT_GRAY,
+            paddingTop: 20,
+            backgroundColor: DEFAULT_COLORS.DARK_GRAY,
             position: "absolute",
             borderTopWidth: 0,
           },
