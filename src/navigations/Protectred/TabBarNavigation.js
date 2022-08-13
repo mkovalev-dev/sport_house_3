@@ -75,7 +75,6 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   }
   return token;
 }
