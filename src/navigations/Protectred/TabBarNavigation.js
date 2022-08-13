@@ -6,11 +6,30 @@ import {
   DEFAULT_COLORS,
   DEFAULT_STYLE_PARAMS,
 } from "../../resources/styles/base/baseStyles";
-import React from "react";
+import React, { useEffect } from "react";
 import ProfileNavigation from "./navigations/ProfileNavigation";
+import { useDispatch } from "react-redux";
+import { UpdateNotificationTokenApiRequest } from "../../api/redux/slices/userSlice";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 
 const Tab = createBottomTabNavigator();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 export default function TabBarNavigation() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      dispatch(UpdateNotificationTokenApiRequest({ token: token }))
+    );
+  }, []);
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" />
@@ -43,4 +62,20 @@ export default function TabBarNavigation() {
       </Tab.Navigator>
     </NavigationContainer>
   );
+}
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  }
+  return token;
 }

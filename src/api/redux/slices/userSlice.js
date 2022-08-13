@@ -116,6 +116,23 @@ export const UpdateRecUserInfoApiRequest = createAsyncThunk(
   }
 );
 
+/**
+ * Обновить токен уведомлений.
+ */
+export const UpdateNotificationTokenApiRequest = createAsyncThunk(
+  "user/UpdateNotificationTokenApiRequest",
+  async (data, { rejectWithValue }) => {
+    const response = await api.post(`user/update-notification-token/`, {
+      json: data,
+    });
+    const dataResponse = await response.json();
+    if (!response.ok) {
+      return rejectWithValue(dataResponse);
+    }
+    return dataResponse;
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,

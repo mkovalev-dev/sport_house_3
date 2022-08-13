@@ -10,19 +10,21 @@ export default function UserParameters() {
       <ScrollView horizontal={true}>
         <Box
           style={styles.container}
-          borderStyle={stateRecUserInfoData.height ? "solid" : "dashed"}
+          borderStyle={stateRecUserInfoData?.height ? "solid" : "dashed"}
         >
           <Heading style={styles.hedingStyle}>
-            {stateRecUserInfoData.height ? stateRecUserInfoData.height : "-"} см
+            {stateRecUserInfoData?.height ? stateRecUserInfoData.height : "-"}{" "}
+            см
           </Heading>
           <Text style={styles.titleStyle}>Текущий рост</Text>
         </Box>
         <Box
           style={styles.container}
-          borderStyle={stateRecUserInfoData.weight ? "solid" : "dashed"}
+          borderStyle={stateRecUserInfoData?.weight ? "solid" : "dashed"}
         >
           <Heading style={styles.hedingStyle}>
-            {stateRecUserInfoData.weight ? stateRecUserInfoData.weight : "-"} кг
+            {stateRecUserInfoData?.weight ? stateRecUserInfoData.weight : "-"}{" "}
+            кг
           </Heading>
           <Text style={styles.titleStyle}>Текущий вес</Text>
         </Box>
