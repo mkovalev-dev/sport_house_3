@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { UpdateNotificationTokenApiRequest } from "../../api/redux/slices/userSlice";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import Map from "./screens/Map";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,6 +43,8 @@ export default function TabBarNavigation() {
 
             if (route.name === "Профиль") {
               iconName = "person";
+            } else if (route.name === "Площадки") {
+              iconName = "map";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -58,6 +61,7 @@ export default function TabBarNavigation() {
           tabBarInactiveTintColor: DEFAULT_COLORS.WHITE,
         })}
       >
+        <Tab.Screen name="Площадки" component={Map} />
         <Tab.Screen name="Профиль" component={ProfileNavigation} />
       </Tab.Navigator>
     </NavigationContainer>

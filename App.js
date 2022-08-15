@@ -4,8 +4,9 @@ import store from "./src/api/redux/store";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import LoginProvider from "./src/lib/LoginProvider";
 import { LinearGradient } from "expo-linear-gradient";
+import * as React from "react";
+import LoginProvider from "./src/lib/LoginProvider";
 
 const persistor = persistStore(store);
 

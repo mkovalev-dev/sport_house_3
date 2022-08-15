@@ -47,6 +47,7 @@
     "react-native-health": "^1.13.0",
     "react-native-horizontal-picker": "^0.0.1",
     "react-native-list-slider": "^1.2.1",
+    "react-native-maps": "^1.2.0",
     "react-native-number-selector": "^1.0.1",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-safe-area-context": "3.3.2",

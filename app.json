@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sport_house_3",
-    "slug": "sport_house_3",
+    "name": "Sport House",
+    "slug": "sport_house",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
