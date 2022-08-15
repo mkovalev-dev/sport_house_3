@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { LinearGradient } from "expo-linear-gradient";
 import * as React from "react";
 import LoginProvider from "./src/lib/LoginProvider";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const persistor = persistStore(store);
 
@@ -22,7 +23,9 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <SSRProvider>
           <NativeBaseProvider config={config}>
-            <LoginProvider />
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <LoginProvider />
+            </GestureHandlerRootView>
           </NativeBaseProvider>
         </SSRProvider>
       </PersistGate>
