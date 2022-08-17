@@ -1,11 +1,16 @@
-import { Box, Pressable, Text } from "native-base";
-import { DEFAULT_COLORS } from "../../../../../../../resources/styles/base/baseStyles";
+import { Box, HStack, Icon, Pressable, Text } from "native-base";
+import {
+  DEFAULT_COLORS,
+  DEFAULT_STYLE_PARAMS,
+} from "../../../../../../../resources/styles/base/baseStyles";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function ActionButton({
   title,
   navigateTo,
+  iconName,
   styleType = "solid",
 }) {
   const navigation = useNavigation();
@@ -23,11 +28,23 @@ export default function ActionButton({
             : styles.containerSolid
         }
       >
-        <Text
-          style={styleType === "border" ? styles.textBorder : styles.textSolid}
-        >
-          {title}
-        </Text>
+        <HStack alignItems={"center"} space={4}>
+          <Icon
+            as={AntDesign}
+            name={iconName}
+            style={
+              styleType === "border" ? styles.textBorder : styles.textSolid
+            }
+            size={5}
+          />
+          <Text
+            style={
+              styleType === "border" ? styles.textBorder : styles.textSolid
+            }
+          >
+            {title}
+          </Text>
+        </HStack>
       </Box>
     </Pressable>
   );
@@ -36,24 +53,26 @@ export default function ActionButton({
 const styles = StyleSheet.create({
   containerSolid: {
     width: "100%",
+    paddingLeft: DEFAULT_STYLE_PARAMS.paddingLeft,
+    paddingRight: DEFAULT_STYLE_PARAMS.paddingRight,
     backgroundColor: DEFAULT_COLORS.DARK_GRAY,
     height: 57.5,
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
   },
-  textSolid: { width: 300, color: "white", textAlign: "center" },
+  textSolid: { color: "white" },
 
   containerBorder: {
     width: "100%",
+    paddingLeft: DEFAULT_STYLE_PARAMS.paddingLeft,
+    paddingRight: DEFAULT_STYLE_PARAMS.paddingRight,
     borderWidth: 1,
     borderColor: DEFAULT_COLORS.DARK_GRAY,
     height: 57.5,
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
   },
   textBorder: {
-    width: 300,
     color: DEFAULT_COLORS.DARK_GRAY,
-    textAlign: "center",
   },
 });

@@ -17,7 +17,7 @@ const config = {
   },
 };
 
-export default function App() {
+function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -32,3 +32,5 @@ export default function App() {
     </Provider>
   );
 }
+
+export default App;

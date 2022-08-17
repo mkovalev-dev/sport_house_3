@@ -45,12 +45,15 @@ export default function TabBarNavigation() {
               iconName = "person";
             } else if (route.name === "Площадки") {
               iconName = "map";
+            } else if (route.name === "Главная") {
+              iconName = "home";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarStyle: {
             height: 90,
-            borderRadius: DEFAULT_STYLE_PARAMS.borderRadius,
+            borderTopLeftRadius: DEFAULT_STYLE_PARAMS.borderRadius,
+            borderTopRightRadius: DEFAULT_STYLE_PARAMS.borderRadius,
             paddingHorizontal: 5,
             paddingTop: 20,
             backgroundColor: DEFAULT_COLORS.DARK_GRAY,
@@ -61,6 +64,12 @@ export default function TabBarNavigation() {
           tabBarInactiveTintColor: DEFAULT_COLORS.WHITE,
         })}
       >
+        <Tab.Screen
+          name="Главная"
+          component={() => {
+            return <></>;
+          }}
+        />
         <Tab.Screen name="Площадки" component={Map} />
         <Tab.Screen name="Профиль" component={ProfileNavigation} />
       </Tab.Navigator>

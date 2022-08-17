@@ -16,6 +16,7 @@ export default function HeaderProfileInfo() {
 
   useEffect(() => {
     if (isFocused) {
+      // Sentry.Native.captureException(error);
       dispatch(ViewUserRecInfoApiRequest());
       dispatch(UserShortInfoApiRequest());
     }

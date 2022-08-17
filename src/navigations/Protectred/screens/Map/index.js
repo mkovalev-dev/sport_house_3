@@ -5,7 +5,9 @@ import {
   Heading,
   HStack,
   Icon,
+  Image,
   Input,
+  Pressable,
   ScrollView,
   StatusBar,
   VStack,
@@ -77,29 +79,145 @@ export default function Map() {
           keyExtractor={(i) => i}
           renderItem={({ item }) => (
             <View style={styles.item}>
-              <ScrollView horizontal={true} style={{ marginBottom: 15 }}>
-                <Box style={stylesStories.container}></Box>
-                <Box style={stylesStories.container}></Box>
-                <Box style={stylesStories.container}></Box>
-                <Box style={stylesStories.container}></Box>
-                <Box style={stylesStories.container}></Box>
-                <Box style={stylesStories.container}></Box>
+              <ScrollView style={{ marginBottom: 100 }}>
+                {/*<ScrollView horizontal={true} style={{ marginBottom: 15 }}>*/}
+                {/*  <Box style={stylesStories.container}></Box>*/}
+                {/*  <Box style={stylesStories.container}></Box>*/}
+                {/*  <Box style={stylesStories.container}></Box>*/}
+                {/*  <Box style={stylesStories.container}></Box>*/}
+                {/*  <Box style={stylesStories.container}></Box>*/}
+                {/*  <Box style={stylesStories.container}></Box>*/}
+                {/*</ScrollView>*/}
+                <Heading>Рубрики</Heading>
+                <VStack mt={4} space={4}>
+                  <HStack space={4}>
+                    <Pressable
+                      onPress={() => {
+                        console.log("ee");
+                      }}
+                    >
+                      <Box style={styleRubric.container}>
+                        <Heading size={"md"}>Футбол</Heading>
+                        <Image
+                          source={require("../../../../resources/img/rubrick/football-players.png")}
+                          style={{
+                            width: 50,
+                            height: 50,
+                            position: "absolute",
+                            bottom: 10,
+                            right: 10,
+                          }}
+                          alt="distance"
+                        />
+                      </Box>
+                    </Pressable>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Баскетбол</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/basketball-player.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                  </HStack>
+                  <HStack space={4}>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Бокс</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/boxer.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Бег</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/running-man.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                  </HStack>
+                  <HStack space={4}>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Плавание</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/swimmer.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Теннис</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/tennis-player.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                  </HStack>
+                  <HStack space={4}>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Гимнастика</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/gymnastics.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                    <Box style={styleRubric.container}>
+                      <Heading size={"md"}>Фитнес</Heading>
+                      <Image
+                        source={require("../../../../resources/img/rubrick/weightlifter.png")}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                        }}
+                        alt="distance"
+                      />
+                    </Box>
+                  </HStack>
+                </VStack>
               </ScrollView>
-              <Heading>Рубрики</Heading>
-              <VStack mt={4} space={4}>
-                <HStack space={4}>
-                  <Box style={styleRubric.container}></Box>
-                  <Box style={styleRubric.container}></Box>
-                </HStack>
-                <HStack space={4}>
-                  <Box style={styleRubric.container}></Box>
-                  <Box style={styleRubric.container}></Box>
-                </HStack>
-                <HStack space={4}>
-                  <Box style={styleRubric.container}></Box>
-                  <Box style={styleRubric.container}></Box>
-                </HStack>
-              </VStack>
             </View>
           )}
           contentContainerStyle={styles.contentContainerStyle}
@@ -114,8 +232,8 @@ const styleRubric = StyleSheet.create({
     width: Dimensions.get("window").width / 2 - 24,
     height: 110,
     borderRadius: 15,
-    borderWidth: 2,
-    borderColor: DEFAULT_COLORS.DARK_GRAY,
+    padding: 10,
+    backgroundColor: DEFAULT_COLORS.WHITE,
   },
 });
 
