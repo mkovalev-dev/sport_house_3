@@ -1,22 +1,26 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { isLoginParam } from "../api/redux/slices/userSlice";
 
 export default function useAsyncHookLogin() {
-  const [result, setResult] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const stateIsLoginParam = useSelector(isLoginParam);
   useEffect(() => {
     async function getResult() {
+      setIsLoading(true);
       let token = await AsyncStorage.getItem("token");
       if (token) {
-        setResult(true);
+        setIsLogin(true);
+        setIsLoading(false);
       } else {
-        setResult(false);
+        setIsLogin(false);
+        setIsLoading(false);
       }
     }
     getResult();
   }, [stateIsLoginParam]);
 
-  return result;
+  return { isLogin, isLoading };
 }
