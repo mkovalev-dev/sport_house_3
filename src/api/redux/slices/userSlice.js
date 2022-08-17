@@ -27,6 +27,21 @@ export const LoginApiRequest = createAsyncThunk(
 );
 
 /**
+ * Выход пользователя из системы.
+ */
+export const LogoutApiRequest = createAsyncThunk(
+  "user/LogoutApiRequest",
+  async (_, { rejectWithValue }) => {
+    const response = await api.get(`user/logout/`);
+    const dataResponse = await response.json();
+    if (!response.ok) {
+      return rejectWithValue(dataResponse);
+    }
+    return dataResponse;
+  }
+);
+
+/**
  * Получить короткую информацию о пользовтеле.
  */
 export const UserShortInfoApiRequest = createAsyncThunk(
@@ -143,6 +158,13 @@ const userSlice = createSlice({
     },
     [LoginApiRequest.rejected]: (state, action) => {
       state.isLoginParam = false;
+    },
+
+    [LogoutApiRequest.fulfilled]: (state, action) => {
+      state.isLoginParam = false;
+    },
+    [LogoutApiRequest.rejected]: (state, action) => {
+      state.isLoginParam = true;
     },
 
     [UserShortInfoApiRequest.fulfilled]: (state, action) => {
