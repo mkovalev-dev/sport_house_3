@@ -39,7 +39,7 @@ export default function UserInfo() {
         justifyContent: "center",
         alignItems: "center",
         height: "100%",
-        marginTop: "15%",
+        top: "17%",
       }}
     >
       <>

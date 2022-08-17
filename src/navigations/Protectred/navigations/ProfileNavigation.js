@@ -4,6 +4,7 @@ import Settings from "../screens/Profile/screens/Settings";
 import OnBoardingFormNavigator from "../screens/Profile/screens/OnBoardingForm";
 import MyRecommendation from "../screens/Profile/screens/MyRecommendation";
 import MyCalendar from "../screens/Profile/screens/MyCalendar";
+import Notification from "../screens/Profile/screens/Notification";
 
 const ProfileStack = createNativeStackNavigator();
 export default function ProfileNavigation() {
@@ -39,6 +40,15 @@ export default function ProfileNavigation() {
         options={{
           headerShown: true,
           title: "Мой календарь",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <ProfileStack.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          headerShown: true,
+          title: "Пуш-уведомления",
           headerBackTitleVisible: false,
         }}
       />

@@ -7,6 +7,7 @@ let initialState = {
   UserShortInfoData: null,
   UploadUserAvatarData: null,
   ViewUserRecInfoData: null,
+  UserNotificationListData: [],
 };
 
 /**
@@ -148,6 +149,21 @@ export const UpdateNotificationTokenApiRequest = createAsyncThunk(
   }
 );
 
+/**
+ * Получить список уведомлений.
+ */
+export const UserNotificationListApiRequest = createAsyncThunk(
+  "user/UserNotificationListApiRequest",
+  async (_, { rejectWithValue }) => {
+    const response = await api.get(`user/notification-list/`);
+    const dataResponse = await response.json();
+    if (!response.ok) {
+      return rejectWithValue(dataResponse);
+    }
+    return dataResponse;
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -180,6 +196,10 @@ const userSlice = createSlice({
     [ViewUserRecInfoApiRequest.rejected]: (state, action) => {
       state.ViewUserRecInfoData = {};
     },
+
+    [UserNotificationListApiRequest.fulfilled]: (state, action) => {
+      state.UserNotificationListData = action.payload;
+    },
   },
 });
 export default userSlice.reducer;
@@ -189,3 +209,6 @@ export const UserShortInfoData = (state) => {
   return state.user.UserShortInfoData;
 };
 export const ViewUserRecInfoData = (state) => state.user.ViewUserRecInfoData;
+
+export const UserNotificationListData = (state) =>
+  state.user.UserNotificationListData;

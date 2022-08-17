@@ -6,7 +6,7 @@ import { ViewUserRecInfoData } from "../../../../../../../api/redux/slices/userS
 export default function UserParameters() {
   const stateRecUserInfoData = useSelector(ViewUserRecInfoData);
   return (
-    <View>
+    <View top={4}>
       <ScrollView horizontal={true}>
         <Box
           style={styles.container}
