@@ -64,12 +64,12 @@ export default function TabBarNavigation() {
           tabBarInactiveTintColor: DEFAULT_COLORS.WHITE,
         })}
       >
-        <Tab.Screen
-          name="Главная"
-          component={() => {
-            return <></>;
-          }}
-        />
+        {/*<Tab.Screen*/}
+        {/*  name="Главная"*/}
+        {/*  component={() => {*/}
+        {/*    return <></>;*/}
+        {/*  }}*/}
+        {/*/>*/}
         <Tab.Screen name="Площадки" component={Map} />
         <Tab.Screen name="Профиль" component={ProfileNavigation} />
       </Tab.Navigator>

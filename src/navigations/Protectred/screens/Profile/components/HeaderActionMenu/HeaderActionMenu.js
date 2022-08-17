@@ -61,7 +61,7 @@ export default function HeaderActionMenu() {
         )}
         <ActionButton
           title="Мой календарь"
-          navigateTo=""
+          navigateTo="MyCalendar"
           styleType="border"
           iconName="calendar"
         />

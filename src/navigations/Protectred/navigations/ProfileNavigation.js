@@ -3,6 +3,7 @@ import Profile from "../screens/Profile";
 import Settings from "../screens/Profile/screens/Settings";
 import OnBoardingFormNavigator from "../screens/Profile/screens/OnBoardingForm";
 import MyRecommendation from "../screens/Profile/screens/MyRecommendation";
+import MyCalendar from "../screens/Profile/screens/MyCalendar";
 
 const ProfileStack = createNativeStackNavigator();
 export default function ProfileNavigation() {
@@ -29,6 +30,15 @@ export default function ProfileNavigation() {
         options={{
           headerShown: true,
           title: "Мои рекомендации",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <ProfileStack.Screen
+        name="MyCalendar"
+        component={MyCalendar}
+        options={{
+          headerShown: true,
+          title: "Мой календарь",
           headerBackTitleVisible: false,
         }}
       />
