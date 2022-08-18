@@ -15,9 +15,9 @@ export function ListItem({ item, onPressElement, sheetRef }) {
         sheetRef.current.collapse();
       }}
     >
-      <View style={[styles.logo, { backgroundColor: item.color }]}>
+      <View style={[styles.logo, { backgroundColor: item.category.color }]}>
         <Image
-          source={item.img}
+          source={item?.img}
           style={styles.logoImage}
           resizeMode="contain"
         />

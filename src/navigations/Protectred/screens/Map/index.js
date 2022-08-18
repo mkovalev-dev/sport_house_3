@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
-import { MARKERS_DATA } from "./components/data";
 import CustomMarker from "./components/CustomMarker";
 import { useMap } from "./components/useMap";
 import { CustomBottomSheet } from "./components/BottomSheet";
 import { TopBar } from "./components/TopBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLocation } from "../../../../api/redux/slices/baseSlice";
+import {
+  LocationApiRequest,
+  locationData,
+} from "../../../../api/redux/slices/locationSlice";
 
 export default function Map() {
   const {
@@ -17,6 +20,13 @@ export default function Map() {
     handelResetInitialPosition,
   } = useMap();
   const stateUserLocation = useSelector(userLocation);
+  const stateLocationData = useSelector(locationData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(LocationApiRequest({}));
+  }, []);
+
   return (
     <>
       <View style={stylesMap.container}>
@@ -39,12 +49,12 @@ export default function Map() {
             longitudeDelta: 0.1921,
           }}
         >
-          {MARKERS_DATA.map((marker) => (
+          {stateLocationData.map((marker) => (
             <CustomMarker
               key={marker.id}
               id={marker.id}
               selectedMarker={selectedMarker}
-              color={marker.color}
+              color={marker.category.color}
               latitude={marker.latitude}
               longitude={marker.longitude}
             ></CustomMarker>

@@ -9,56 +9,26 @@ import {
   Text,
 } from "native-base";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import { DEFAULT_COLORS } from "../../../../../resources/styles/base/baseStyles";
 import { Spacer } from "native-base/src/components/primitives/Flex";
-
-const ACTION_BUTTON = [
-  {
-    name: "Футбол",
-    slug: "football",
-    img: require("../../../../../resources/img/rubrick/football-players.png"),
-  },
-  {
-    name: "Баскетбол",
-    slug: "basketball",
-    img: require("../../../../../resources/img/rubrick/basketball-player.png"),
-  },
-  {
-    name: "Бокс",
-    slug: "box",
-    img: require("../../../../../resources/img/rubrick/boxer.png"),
-  },
-  {
-    name: "Бег",
-    slug: "running",
-    img: require("../../../../../resources/img/rubrick/running-man.png"),
-  },
-  {
-    name: "Плавание",
-    slug: "swim",
-    img: require("../../../../../resources/img/rubrick/swimmer.png"),
-  },
-  {
-    name: "Теннис",
-    slug: "box",
-    img: require("../../../../../resources/img/rubrick/tennis-player.png"),
-  },
-  {
-    name: "Гимнастика",
-    slug: "gymnastic",
-    img: require("../../../../../resources/img/rubrick/gymnastics.png"),
-  },
-  {
-    name: "Фитнес",
-    slug: "fitnes",
-    img: require("../../../../../resources/img/rubrick/weightlifter.png"),
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import {
+  LocationApiRequest,
+  LocationSportTypeApiRequest,
+  locationSportTypeData,
+} from "../../../../../api/redux/slices/locationSlice";
+import { ApiUrl } from "../../../../../lib/ApiUrl";
 
 export default function BottomSheetViewRubric() {
   const [selected, setSelected] = useState(null);
+  const dispatch = useDispatch();
+  const stateLocationSportTypesData = useSelector(locationSportTypeData);
+
+  useEffect(() => {
+    dispatch(LocationSportTypeApiRequest());
+  }, []);
   return (
     <BottomSheetView>
       <StatusBar barStyle="dark-content" />
@@ -78,6 +48,7 @@ export default function BottomSheetViewRubric() {
           <Pressable
             onPress={() => {
               setSelected(null);
+              dispatch(LocationApiRequest({}));
             }}
           >
             <Text
@@ -98,25 +69,28 @@ export default function BottomSheetViewRubric() {
         horizontal={true}
         style={{ marginBottom: 15, marginLeft: 10 }}
       >
-        {ACTION_BUTTON.map((item) => {
+        {stateLocationSportTypesData.map((item) => {
           return (
             <Pressable
-              key={item.name}
+              key={item.id}
               onPress={() => {
-                setSelected(item.slug);
+                setSelected(item.id);
+                dispatch(LocationApiRequest({ sportType: item.id }));
               }}
             >
               <Box
                 key={item.slug}
                 style={
-                  selected === item.slug
+                  selected === item.id
                     ? styleRubric.containerSelected
                     : styleRubric.containerUnselected
                 }
               >
                 <Heading size={"md"}>{item.name}</Heading>
                 <Image
-                  source={item.img}
+                  source={{
+                    uri: `${ApiUrl()}${item.icon}`,
+                  }}
                   style={{
                     width: 50,
                     height: 50,
@@ -124,7 +98,7 @@ export default function BottomSheetViewRubric() {
                     bottom: 10,
                     right: 10,
                   }}
-                  alt="distance"
+                  alt={item.slug}
                 />
               </Box>
             </Pressable>

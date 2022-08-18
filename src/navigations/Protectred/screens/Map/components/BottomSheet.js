@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import BottomSheet, {
   BottomSheetScrollView,
@@ -6,21 +6,38 @@ import BottomSheet, {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { ListItem } from "./ListItem";
-import { MARKERS_DATA } from "./data";
 import { Heading } from "native-base";
 import BottomSheetViewRubric from "./BottomSheetViewRubric";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  LocationApiRequest,
+  locationData,
+} from "../../../../../api/redux/slices/locationSlice";
 
 export function CustomBottomSheet({ onPressElement }) {
   const sheetRef = useRef(null);
+  const stateLocationData = useSelector(locationData);
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
   return (
     <BottomSheet
       ref={sheetRef}
       index={0}
       snapPoints={["25%", "50%", "85%"]}
       handleStyle={{ backgroundColor: "#fff" }}
-      keyboardBehavior={"interactive"}
+      keyboardBehavior={"extend"}
     >
-      <BottomSheetTextInput style={styles.textInput} placeholder={"Поиск..."} />
+      <BottomSheetTextInput
+        style={styles.textInput}
+        placeholderTextColor={"black"}
+        keyboardType={"default"}
+        placeholder={"Поиск..."}
+        clearButtonMode={"always"}
+        onChangeText={setSearch}
+        onSubmitEditing={() => {
+          dispatch(LocationApiRequest({ sportType: null, search: search }));
+        }}
+      />
       <BottomSheetViewRubric />
       <BottomSheetView>
         <Heading
@@ -35,7 +52,7 @@ export function CustomBottomSheet({ onPressElement }) {
         </Heading>
       </BottomSheetView>
       <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-        {MARKERS_DATA.map((item) => {
+        {stateLocationData.map((item) => {
           return (
             <ListItem
               key={item.id}
@@ -66,7 +83,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     padding: 12,
     borderRadius: 12,
-    backgroundColor: "#e3e3e3",
+    backgroundColor: "#ececec",
     color: "black",
   },
 });
