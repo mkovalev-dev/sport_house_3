@@ -1,12 +1,13 @@
 import React from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { DEFAULT_COLORS } from "../../../../resources/styles/base/baseStyles";
 import MapView from "react-native-maps";
 import { MARKERS_DATA } from "./components/data";
 import CustomMarker from "./components/CustomMarker";
 import { useMap } from "./components/useMap";
 import { CustomBottomSheet } from "./components/BottomSheet";
 import { TopBar } from "./components/TopBar";
+import { useSelector } from "react-redux";
+import { userLocation } from "../../../../api/redux/slices/baseSlice";
 
 export default function Map() {
   const {
@@ -15,7 +16,7 @@ export default function Map() {
     handleNavigateToPoint,
     handelResetInitialPosition,
   } = useMap();
-
+  const stateUserLocation = useSelector(userLocation);
   return (
     <>
       <View style={stylesMap.container}>
@@ -30,10 +31,10 @@ export default function Map() {
           userInterfaceStyle={"light"}
           showsMyLocationButton={true}
           zoomEnabled={true}
-          followsUserLocation={true}
+          // followsUserLocation={true}
           initialRegion={{
-            latitude: 55.75248,
-            longitude: 37.62302,
+            latitude: stateUserLocation.latitude,
+            longitude: stateUserLocation.longitude,
             latitudeDelta: 0.2,
             longitudeDelta: 0.1921,
           }}
@@ -55,16 +56,6 @@ export default function Map() {
   );
 }
 
-const styleRubric = StyleSheet.create({
-  container: {
-    width: Dimensions.get("window").width / 2 - 24,
-    height: 110,
-    borderRadius: 15,
-    padding: 10,
-    backgroundColor: DEFAULT_COLORS.WHITE,
-  },
-});
-
 const stylesMap = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,46 +66,5 @@ const stylesMap = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
-  },
-});
-
-const stylesStories = StyleSheet.create({
-  container: {
-    width: 90,
-    height: 110,
-    borderRadius: 15,
-    borderWidth: 2,
-    borderColor: DEFAULT_COLORS.DARK_GRAY,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainerStyle: {
-    padding: 16,
-    height: "100%",
-    backgroundColor: "#F3F4F9",
-  },
-  header: {
-    alignItems: "center",
-    backgroundColor: "white",
-    paddingVertical: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  panelHandle: {
-    width: 40,
-    height: 4,
-    backgroundColor: DEFAULT_COLORS.DARK_GRAY,
-    borderRadius: 4,
-  },
-  item: {
-    width: "100%",
   },
 });

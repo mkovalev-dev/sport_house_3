@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-export function ListItem({ item, onPressElement }) {
+export function ListItem({ item, onPressElement, sheetRef }) {
   return (
     <Pressable
       style={({ pressed }) => [
@@ -10,7 +10,10 @@ export function ListItem({ item, onPressElement }) {
         },
         styles.item,
       ]}
-      onPress={() => onPressElement(item.id, item.latitude, item.longitude)}
+      onPress={() => {
+        onPressElement(item.id, item.latitude, item.longitude);
+        sheetRef.current.collapse();
+      }}
     >
       <View style={[styles.logo, { backgroundColor: item.color }]}>
         <Image

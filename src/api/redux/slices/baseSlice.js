@@ -1,6 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-import api from "../../api";
+import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {};
 //
@@ -25,9 +23,9 @@ const baseSlice = createSlice({
   name: "base",
   initialState,
   reducers: {
-    // setSubMenuOpenKeys: (state, action) => {
-    //   state.subMenuKeys = action.payload;
-    // },
+    setUserLocation: (state, action) => {
+      state.userLocation = action.payload;
+    },
   },
   extraReducers: {
     // [LoginApiRequest.pending]: (state) => {
@@ -44,6 +42,9 @@ const baseSlice = createSlice({
   },
 });
 export default baseSlice.reducer;
+
+export const { setUserLocation } = baseSlice.actions;
+export const userLocation = (state) => state.base.userLocation;
 
 // export const LoginRequestData = (state) => state.base.TestApiRequest;
 // export const LoginRequestStatus = (state) => state.base.TestApiRequestStatus;

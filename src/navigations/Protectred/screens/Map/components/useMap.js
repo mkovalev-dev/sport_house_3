@@ -1,11 +1,13 @@
 import { useCallback, useRef, useState } from "react";
+import { userLocation } from "../../../../../api/redux/slices/baseSlice";
+import { useSelector } from "react-redux";
 
 const DEVIATION = 0.0002;
 
 export function useMap() {
   const mapRef = useRef(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
-
+  const stateUserLocation = useSelector(userLocation);
   const handleNavigateToPoint = useCallback(
     (id, lat, long) => {
       if (mapRef) {
@@ -15,7 +17,7 @@ export function useMap() {
               latitude: lat - DEVIATION,
               longitude: long,
             },
-            zoom: 20.5,
+            altitude: 1500,
           },
           500
         );
@@ -29,9 +31,9 @@ export function useMap() {
     if (mapRef) {
       mapRef.current.animateToRegion(
         {
-          latitude: 55.75248,
-          longitude: 37.62302,
-          latitudeDelta: 0.2,
+          latitude: stateUserLocation.latitude,
+          longitude: stateUserLocation.longitude,
+          latitudeDelta: 0.1,
           longitudeDelta: 0.1921,
         },
         500

@@ -2,16 +2,17 @@ import { Avatar, Heading, HStack, Icon, Text, View, VStack } from "native-base";
 import { DEFAULT_COLORS } from "../../../../../../../resources/styles/base/baseStyles";
 import { ApiUrl } from "../../../../../../../lib/ApiUrl";
 import { AntDesign } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserShortInfoData } from "../../../../../../../api/redux/slices/userSlice";
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
+import { setUserLocation } from "../../../../../../../api/redux/slices/baseSlice";
 
 export default function UserInfo() {
   const stateShortUserData = useSelector(UserShortInfoData);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -21,6 +22,7 @@ export default function UserInfo() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
+      dispatch(setUserLocation(location.coords));
       let address = await Location.reverseGeocodeAsync(location.coords);
       setLocation(address);
     })();
@@ -30,7 +32,7 @@ export default function UserInfo() {
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    text = `${location[0].city}, ${location[0].country}`;
+    text = `${location[0].name}`;
   }
   return (
     <View
@@ -55,7 +57,7 @@ export default function UserInfo() {
           <Icon as={AntDesign} name="user" color="#fff" size={"lg"} />
         </Avatar>
         <VStack style={{ justifyContent: "center" }} space={2}>
-          <Heading size={"md"} style={{ color: "white" }}>
+          <Heading size={"md"} style={{ color: "white", textAlign: "center" }}>
             {stateShortUserData?.full_name}
           </Heading>
           <HStack alignItems="center" justifyContent={"center"} space={1}>

@@ -164,6 +164,21 @@ export const UserNotificationListApiRequest = createAsyncThunk(
   }
 );
 
+/**
+ * Прочитать все уведомления пользователя.
+ */
+export const CheckUserNotificationApiRequest = createAsyncThunk(
+  "user/CheckUserNotificationApiRequest",
+  async (_, { rejectWithValue }) => {
+    const response = await api.get(`user/notification-check/`);
+    const dataResponse = await response.json();
+    if (!response.ok) {
+      return rejectWithValue(dataResponse);
+    }
+    return dataResponse;
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,

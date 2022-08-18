@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CheckUserNotificationApiRequest,
   UserNotificationListApiRequest,
   UserNotificationListData,
 } from "../../../../../../api/redux/slices/userSlice";
@@ -37,7 +38,12 @@ export default function Notification() {
   };
 
   useEffect(() => {
-    dispatch(UserNotificationListApiRequest());
+    dispatch(UserNotificationListApiRequest())
+      .then(unwrapResult)
+      .then((res) => {
+        dispatch(CheckUserNotificationApiRequest());
+      })
+      .catch((err) => {});
   }, []);
   return (
     <View justifyContent={"center"} alignItems={"center"}>
