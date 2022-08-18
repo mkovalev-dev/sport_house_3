@@ -23,7 +23,7 @@ export default function TitleAction() {
         Sport House
       </Text>
       <Spacer />
-      {stateShortUserData.notification_badge && (
+      {stateShortUserData?.notification_badge && (
         <Badge // bg="red.400"
           colorScheme="danger"
           rounded="full"
