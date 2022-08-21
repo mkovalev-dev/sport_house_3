@@ -49,10 +49,14 @@ export const LocationSportTypeApiRequest = createAsyncThunk(
  */
 export const LocationApiRequest = createAsyncThunk(
   "location/LocationApiRequest",
-  async ({ sportType, search }, { rejectWithValue }) => {
+  async ({ sportType, search, myRec }, { rejectWithValue }) => {
     const response = await api.get(`location/list/`, {
       searchParams: {
-        ...filterSearchParams({ sport_type: sportType, search: search }),
+        ...filterSearchParams({
+          sport_type: sportType,
+          search: search,
+          my_rec: myRec,
+        }),
       },
     });
     const dataResponse = await response.json();
@@ -62,6 +66,22 @@ export const LocationApiRequest = createAsyncThunk(
     return dataResponse;
   }
 );
+
+/**
+ * Добавить/Удалить в избранное спортивную площадку.
+ */
+export const AddLocationToFavoriteApiRequest = createAsyncThunk(
+  "location/AddLocationToFavoriteApiRequest",
+  async (id, { rejectWithValue }) => {
+    const response = await api.put(`location/favorite/edit/${id}/`, {});
+    const dataResponse = await response.json();
+    if (!response.ok) {
+      return rejectWithValue(dataResponse);
+    }
+    return dataResponse;
+  }
+);
+
 const locationSlice = createSlice({
   name: "location",
   initialState,

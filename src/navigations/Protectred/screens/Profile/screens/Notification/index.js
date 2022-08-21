@@ -56,6 +56,7 @@ export default function Notification() {
             onRefresh={onRefresh}
           />
         }
+        marginBottom={180}
         maxWidth={"100%"}
         height={"100%"}
         data={stateNotificationData}

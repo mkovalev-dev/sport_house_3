@@ -10,7 +10,6 @@ import React, { useEffect } from "react";
 import ProfileNavigation from "./navigations/ProfileNavigation";
 import { useDispatch } from "react-redux";
 import { UpdateNotificationTokenApiRequest } from "../../api/redux/slices/userSlice";
-import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Map from "./screens/Map";
 
@@ -70,7 +69,16 @@ export default function TabBarNavigation() {
         {/*    return <></>;*/}
         {/*  }}*/}
         {/*/>*/}
-        <Tab.Screen name="Площадки" component={Map} />
+        <Tab.Screen
+          name="Площадки"
+          component={Map}
+          listeners={({ navigation, route }) => ({
+            tabPress: (e) => {
+              navigation.setParams({ my_location: false });
+            },
+          })}
+          initialParams={{ my_location: false }}
+        />
         <Tab.Screen name="Профиль" component={ProfileNavigation} />
       </Tab.Navigator>
     </NavigationContainer>
@@ -79,15 +87,13 @@ export default function TabBarNavigation() {
 
 async function registerForPushNotificationsAsync() {
   let token;
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  let finalStatus = existingStatus;
+  if (existingStatus !== "granted") {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
   }
+  token = (await Notifications.getExpoPushTokenAsync()).data;
+
   return token;
 }

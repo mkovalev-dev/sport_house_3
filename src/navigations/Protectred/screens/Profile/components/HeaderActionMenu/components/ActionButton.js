@@ -12,12 +12,13 @@ export default function ActionButton({
   navigateTo,
   iconName,
   styleType = "solid",
+  params = {},
 }) {
   const navigation = useNavigation();
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate(navigateTo);
+        navigation.navigate(navigateTo, params);
       }}
     >
       <Box

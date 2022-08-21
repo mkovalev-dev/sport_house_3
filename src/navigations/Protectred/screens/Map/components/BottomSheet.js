@@ -14,7 +14,7 @@ import {
   locationData,
 } from "../../../../../api/redux/slices/locationSlice";
 
-export function CustomBottomSheet({ onPressElement }) {
+export function CustomBottomSheet({ onPressElement, myLocation }) {
   const sheetRef = useRef(null);
   const stateLocationData = useSelector(locationData);
   const [search, setSearch] = useState("");
@@ -35,10 +35,16 @@ export function CustomBottomSheet({ onPressElement }) {
         clearButtonMode={"always"}
         onChangeText={setSearch}
         onSubmitEditing={() => {
-          dispatch(LocationApiRequest({ sportType: null, search: search }));
+          dispatch(
+            LocationApiRequest({
+              sportType: null,
+              search: search,
+              myRec: myLocation,
+            })
+          );
         }}
       />
-      <BottomSheetViewRubric />
+      <BottomSheetViewRubric myLocation={myLocation} />
       <BottomSheetView>
         <Heading
           style={{

@@ -73,9 +73,10 @@ export default function HeaderActionMenu() {
         />
         <ActionButton
           title="Мои площадки"
-          navigateTo=""
+          navigateTo="Площадки"
           styleType="border"
           iconName="enviromento"
+          params={{ my_location: true }}
         />
         <ActionButton
           title="Мои мероприятия"
