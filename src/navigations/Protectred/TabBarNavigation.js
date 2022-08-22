@@ -69,16 +69,7 @@ export default function TabBarNavigation() {
         {/*    return <></>;*/}
         {/*  }}*/}
         {/*/>*/}
-        <Tab.Screen
-          name="Площадки"
-          component={Map}
-          listeners={({ navigation, route }) => ({
-            tabPress: (e) => {
-              navigation.setParams({ my_location: false });
-            },
-          })}
-          initialParams={{ my_location: false }}
-        />
+        <Tab.Screen name="Площадки" component={Map} />
         <Tab.Screen name="Профиль" component={ProfileNavigation} />
       </Tab.Navigator>
     </NavigationContainer>

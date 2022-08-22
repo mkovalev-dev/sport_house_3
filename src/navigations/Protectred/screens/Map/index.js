@@ -11,9 +11,8 @@ import {
   LocationApiRequest,
   locationData,
 } from "../../../../api/redux/slices/locationSlice";
-import { useIsFocused } from "@react-navigation/native";
 
-export default function Map({ route }) {
+export default function Map() {
   const {
     mapRef,
     selectedMarker,
@@ -23,13 +22,10 @@ export default function Map({ route }) {
   const stateUserLocation = useSelector(userLocation);
   const stateLocationData = useSelector(locationData);
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused) {
-      dispatch(LocationApiRequest({ myRec: route.params?.my_location }));
-    }
-  }, [isFocused, route]);
+    dispatch(LocationApiRequest({}));
+  }, []);
 
   return (
     <>
@@ -64,10 +60,7 @@ export default function Map({ route }) {
             ></CustomMarker>
           ))}
         </MapView>
-        <CustomBottomSheet
-          onPressElement={handleNavigateToPoint}
-          myLocation={route.params?.my_location}
-        />
+        <CustomBottomSheet onPressElement={handleNavigateToPoint} />
       </View>
     </>
   );

@@ -21,13 +21,13 @@ import {
 } from "../../../../../api/redux/slices/locationSlice";
 import { ApiUrl } from "../../../../../lib/ApiUrl";
 
-export default function BottomSheetViewRubric({ myLocation }) {
+export default function BottomSheetViewRubric() {
   const [selected, setSelected] = useState(null);
   const dispatch = useDispatch();
   const stateLocationSportTypesData = useSelector(locationSportTypeData);
 
   useEffect(() => {
-    dispatch(LocationSportTypeApiRequest({ myRec: myLocation }));
+    dispatch(LocationSportTypeApiRequest({}));
   }, []);
   return (
     <BottomSheetView>
@@ -48,7 +48,7 @@ export default function BottomSheetViewRubric({ myLocation }) {
           <Pressable
             onPress={() => {
               setSelected(null);
-              dispatch(LocationApiRequest({ myRec: myLocation }));
+              dispatch(LocationApiRequest({}));
             }}
           >
             <Text
@@ -76,9 +76,7 @@ export default function BottomSheetViewRubric({ myLocation }) {
               onPress={() => {
                 setSelected(item.id);
                 console.log("preess");
-                dispatch(
-                  LocationApiRequest({ sportType: item.id, myRec: myLocation })
-                );
+                dispatch(LocationApiRequest({ sportType: item.id }));
               }}
             >
               <Box
