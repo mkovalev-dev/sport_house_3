@@ -21,6 +21,7 @@ import {
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Alert, FlatList, RefreshControl, StyleSheet } from "react-native";
 import { DEFAULT_COLORS } from "../../../../../../resources/styles/base/baseStyles";
+import { ApiUrl } from "../../../../../../lib/ApiUrl";
 
 export default function MyLocation() {
   const [isloading, setIsLoading] = useState(true);
@@ -74,7 +75,7 @@ export default function MyLocation() {
                     borderTopLeftRadius={25}
                     borderTopRightRadius={25}
                     source={{
-                      uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
+                      uri: `${ApiUrl()}${item.image}`,
                     }}
                     alt="image"
                   />
