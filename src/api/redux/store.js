@@ -13,21 +13,22 @@ import baseSlice from "./slices/baseSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import userSlice from "./slices/userSlice";
 import locationSlice from "./slices/locationSlice";
+import recomendationSlice from "./slices/recomendationSlice";
 
 /**
  * Настройки для store redux
  */
-
 const rootReducer = combineReducers({
   base: baseSlice,
   user: userSlice,
   location: locationSlice,
+  recomendation: recomendationSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["base", "user", "location"],
+  whitelist: ["base", "user", "location", "recomendation"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
