@@ -101,6 +101,66 @@ export default function MyRecommendation() {
       ) : (
         <Skeleton.Text mt={2} p={12} />
       )}
+      {!loading ? (
+        <Box style={styles.box}>
+          <Heading size={"sm"} color={DEFAULT_COLORS.RED} marginRight={4}>
+            Противопоказанные
+          </Heading>
+          <Heading
+            size={"sm"}
+            color={DEFAULT_COLORS.DARK_GRAY_TAB_MENU}
+            marginBottom={4}
+          >
+            Виды спорта:
+          </Heading>
+          <FlatList
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            data={data.no_rec_sport}
+            renderItem={(item) => {
+              return (
+                <>
+                  <Box
+                    style={
+                      item.index === 0 ? styles.firstSportBox : styles.sportBox
+                    }
+                    bg={
+                      item.index === 0 && {
+                        linearGradient: {
+                          colors: [DEFAULT_COLORS.PRIMARY, "orange.500"],
+                          start: [1, 0],
+                          end: [0, 1],
+                        },
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        item.index === 0
+                          ? { color: "#fff", fontWeight: "bold", fontSize: 18 }
+                          : {
+                              color: DEFAULT_COLORS.DARK_GRAY_TAB_MENU,
+                              fontWeight: "bold",
+                              fontSize: 18,
+                            }
+                      }
+                    >
+                      {item.item.name}
+                    </Text>
+                  </Box>
+                  <Box style={{ width: 12 }} />
+                </>
+              );
+            }}
+          />
+          <Text textAlign={"center"} marginTop={4} color={"#bdbdbd"}>
+            Какой нибудь поясняющий текст для пользователя
+          </Text>
+        </Box>
+      ) : (
+        <Skeleton.Text mt={2} p={12} />
+      )}
     </View>
   );
 }

@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "owner": "yungerpeople",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -58,6 +59,11 @@
           "healthUpdatePermission": "Custom health update permission"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9220ff7a-fef1-4f91-b1d8-08d9af81e73f"
+      }
+    }
   }
 }
