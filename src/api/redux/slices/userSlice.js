@@ -43,6 +43,23 @@ export const LogoutApiRequest = createAsyncThunk(
 );
 
 /**
+ * Регистрация пользователя.
+ */
+export const RegistrationUserApiRequest = createAsyncThunk(
+  "user/RegistrationUserApiRequest",
+  async (data, { rejectWithValue }) => {
+    const response = await api.post(`user/registration/`, {
+      json: data,
+    });
+    const dataResponse = await response.json();
+    if (!response.ok) {
+      return rejectWithValue(dataResponse);
+    }
+    return dataResponse;
+  }
+);
+
+/**
  * Получить короткую информацию о пользовтеле.
  */
 export const UserShortInfoApiRequest = createAsyncThunk(
