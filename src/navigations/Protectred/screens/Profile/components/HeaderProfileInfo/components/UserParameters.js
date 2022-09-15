@@ -7,7 +7,7 @@ export default function UserParameters() {
   const stateRecUserInfoData = useSelector(ViewUserRecInfoData);
   return (
     <View top={4}>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <Box
           style={styles.container}
           borderStyle={stateRecUserInfoData?.height ? "solid" : "dashed"}
